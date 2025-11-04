@@ -1,23 +1,29 @@
-import { useState } from "react";
-import viteLogo from "/vite.svg";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
-import Body from "./Body";
-import Login from "./Login";
-import {Provider} from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Body from "./Components/Body";
+import Login from "./Components/Login";
+import Profile from "./Components/Profile";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+import Feed from "./Components/Feed";
+import Connections from "./Components/Connections";
+import Requests from "./Components/Requests";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-    <Provider>
-      <BrowserRouter basename="/">
-        <Routes>
-          <Route path="/" element={<Body />} />
-            <Route path="/login" element={<Login />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+      <Provider store={appStore}>
+        <BrowserRouter basename="/">
+          <Routes>
+            <Route path="/" element={<Body />}>
+              <Route path="/" element={<Feed />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/connections" element={<Connections />} />
+              <Route path="/requests" element={<Requests />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </Provider>
     </>
   );
 }
